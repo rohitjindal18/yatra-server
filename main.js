@@ -25,11 +25,17 @@ app.post('/fetchFlight',  urlParser , function(req , res) {
 		response = [
 			{
 				flightName : "AirIndia",
-				price : 5000
+				price : 5000 ,
+				departTime : "04 : 50 am",
+				arrivalTime : "11 : 30 am",
+				duration : "06h 10m"
 			},
 			{
 				flightName : "Spice Jet",
-				price : 6000
+				price : 6000,
+				departTime : "05 : 50 am",
+				arrivalTime : "10 : 30 am",
+				duration : "04h"
 			}
 		]
 	}
@@ -37,11 +43,17 @@ app.post('/fetchFlight',  urlParser , function(req , res) {
 		response = [
 			{
 				flightName : "Indigo",
-				price : 5000
+				price : 5000,
+				departTime : "04 : 50 am",
+				arrivalTime : "11 : 30 am",
+				duration : "06h 10m"
 			},
 			{
 				flightName : "Vistara",
-				price : 6000
+				price : 6000,
+				departTime : "04 : 50 am",
+				arrivalTime : "11 : 30 am",
+				duration : "06h 10m"
 			}
 		]
 		
