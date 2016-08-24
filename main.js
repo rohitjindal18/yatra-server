@@ -1,16 +1,69 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var request = require('request');
+var fs = require('fs');
 var app = express();
 var urlParser = bodyParser.urlencoded({extended : false})
 
+
 app.use(bodyParser.json());
 
+var token = "EAACEdEose0cBAIVbuDKRc3QwnGBWL9ZCgTWMeHDFUm6j1ZBnfpLPxY6nBzmV5QIlh1ZAF98P6WKM7UoA3hD6LBlykJ7mmzEqy401x0LANd4mU9PuEGZBMaLbKLM18hcfyZCztgJXMbsaFDvBnbTmlISyD4mAgbH4jWBMVxj5hKAZDZD";
+
 app.get('/' , function(req , res) {
-	res.send("Hello World 123");
+	request.get({ url: "https://graph.facebook.com/v2.7/me/?access_token="+token+"&fields=friends.limit(100)"},      function(error, response, body) { 
+              if (!error && response.statusCode == 200) { 
+              	    res.json(body); 
+                 } 
+             });
 })
 
-app.options('/fetchFlight' , function(req , res) {
+app.get('/fetchSelfProfilePhoto' , function(req , res) {
+	request.get({ url: "https://graph.facebook.com/v2.7/"+req.query.id+"/picture?access_token="+token},      function(error, response, body) { 
+              if (!error && response.statusCode == 200) { 
+              	 	res.set('Access-Control-Allow-Origin', '*');
+					res.set('Access-Control-Allow-Headers', 'Content-Type');
+					res.set('Access-Control-Allow-Methods','POST, GET, PUT, DELETE, OPTIONS');
+					res.send(response);
+                 }
+               else {
+               	console.log("error"+response.statusCode);
+               } 
+             });
+})
+
+app.get('/fetchFriends' , function(req , res) {
+	request.get({ url: "https://graph.facebook.com/v2.7/"+req.query.id+"/friends?access_token="+token},      function(error, response, body) { 
+              if (!error && response.statusCode == 200) { 
+              	 	res.set('Access-Control-Allow-Origin', '*');
+					res.set('Access-Control-Allow-Headers', 'Content-Type');
+					res.set('Access-Control-Allow-Methods','POST, GET, PUT, DELETE, OPTIONS');
+					res.send(response.body);
+                 }
+               else {
+               	console.log("error"+response.statusCode);
+               } 
+             });
+})
+
+app.get('/fetchFriendsProfilePhoto' , function(req , res) {
+	request.get({ url: "https://graph.facebook.com/v2.7/"+req.query.id+"/picture?access_token="+token},      function(error, response, body) { 
+              if (!error && response.statusCode == 200) { 
+              	 	res.set('Access-Control-Allow-Origin', '*');
+					res.set('Access-Control-Allow-Headers', 'Content-Type');
+					res.set('Access-Control-Allow-Methods','POST, GET, PUT, DELETE, OPTIONS');
+					res.send(response);
+                 }
+               else {
+               	console.log("error"+response.statusCode);
+               } 
+             });
+})
+
+
+app.options('/*' , function(req , res) {
+	console.log("dddd");
 	res.set('Access-Control-Allow-Origin', '*');
 	res.set('Access-Control-Allow-Headers', 'Content-Type');
 	res.set('Access-Control-Allow-Methods','POST, GET, PUT, DELETE, OPTIONS');
